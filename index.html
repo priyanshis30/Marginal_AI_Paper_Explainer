@@ -32,7 +32,7 @@
   a{color:inherit;}
   .serif{font-family:'Source Serif 4',serif;}
   .mono{font-family:'JetBrains Mono',monospace;}
-
+ 
   /* texture */
   body::before{
     content:"";
@@ -43,9 +43,9 @@
     pointer-events:none;
     z-index:0;
   }
-
+ 
   .wrap{max-width:1080px; margin:0 auto; padding:0 32px; position:relative; z-index:1;}
-
+ 
   /* ===== NAV ===== */
   nav{
     position:sticky; top:0; z-index:50;
@@ -77,7 +77,7 @@
   .key-btn.set{border-color:var(--margin-green); color:var(--margin-green);}
   .navbar-right{display:flex; align-items:center;}
   @media(max-width:720px){ .navlinks{display:none;} }
-
+ 
   /* ===== KEY PANEL ===== */
   .key-overlay{
     position:fixed; inset:0; background:rgba(33,31,26,.35); z-index:100;
@@ -101,7 +101,7 @@
   .key-save{background:var(--ink); color:var(--paper); border:1px solid var(--ink);}
   .key-clear{background:transparent; color:var(--ink-soft); border:1px solid var(--rule);}
   .key-status{font-size:12px; margin-top:10px; color:var(--margin-green); min-height:16px;}
-
+ 
   /* ===== HERO ===== */
   .hero{padding:96px 0 64px;}
   .hero .wrap{display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center;}
@@ -135,7 +135,7 @@
   .btn-ghost:hover{border-color:var(--ink);}
   .trust{font-size:13px; color:var(--ink-faint);}
   .trust b{color:var(--ink-soft); font-weight:600;}
-
+ 
   /* ===== SIGNATURE: annotated page mockup ===== */
   .page-mock{
     background:#FFFEFA; border:1px solid var(--rule);
@@ -164,7 +164,7 @@
   .note.red:before, .note.blue:before{left:-8px;}
   .note.green:before{right:-8px;}
   @media(max-width:980px){ .hero .wrap{grid-template-columns:1fr;} .note{display:none;} h1{font-size:40px;} }
-
+ 
   /* ===== SECTION LABELS ===== */
   .section{padding:84px 0;}
   .section-head{max-width:560px; margin-bottom:48px;}
@@ -174,7 +174,7 @@
   }
   h2{font-family:'Source Serif 4',serif; font-weight:600; font-size:32px; letter-spacing:-.01em; line-height:1.2;}
   .section-head p{color:var(--ink-soft); margin-top:12px; font-size:15.5px; line-height:1.6;}
-
+ 
   /* ===== MARGINALIA FEATURES ===== */
   .marg-list{border-top:1px solid var(--rule);}
   .marg-item{
@@ -192,7 +192,7 @@
     display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:8px; vertical-align:middle;
   }
   @media(max-width:780px){ .marg-item{grid-template-columns:1fr; gap:6px;} .marg-item .tag{order:-1;} }
-
+ 
   /* ===== UPLOAD DEMO ===== */
   .demo{
     background:var(--paper-deep); border-radius:8px; padding:54px 48px;
@@ -227,7 +227,7 @@
   }
   .step.active .n{background:var(--margin-red); color:#fff; border-color:var(--margin-red);}
   .step.active{color:var(--ink);}
-
+ 
   /* ===== QUIZ STRIP ===== */
   .quiz-box{
     border:1px solid var(--rule); border-radius:6px; padding:28px 30px; background:#FFFEFA;
@@ -244,24 +244,24 @@
   .quiz-opt.correct{background:#EAF0E8; border-color:var(--margin-green); color:var(--margin-green); font-weight:500;}
   .quiz-opt.wrong{background:#FBE8E4; border-color:var(--margin-red); color:var(--margin-red);}
   .quiz-feedback{margin-top:14px; font-size:13.5px; color:var(--ink-soft); min-height:20px;}
-
+ 
   /* ===== FOOTER CTA ===== */
   .closing{padding:90px 0 60px; text-align:center;}
   .closing h2{font-size:36px; max-width:640px; margin:0 auto 18px;}
   .closing p{color:var(--ink-soft); margin-bottom:30px;}
   footer{border-top:1px solid var(--rule); padding:28px 0; font-size:13px; color:var(--ink-faint);}
   footer .wrap{display:flex; justify-content:space-between; align-items:center;}
-
+ 
   .fade-up{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
   .fade-up.in{opacity:1; transform:none;}
-
+ 
   @media (prefers-reduced-motion: reduce){
     .fade-up, .note, .progress-bar{transition:none !important;}
   }
 </style>
 </head>
 <body>
-
+ 
 <nav>
   <div class="wrap">
     <div class="brand"><span class="mark">¶</span>Marginal</div>
@@ -276,7 +276,7 @@
     </div>
   </div>
 </nav>
-
+ 
 <div class="key-overlay" id="keyOverlay">
   <div class="key-panel">
     <h3>Add your Groq API key</h3>
@@ -289,7 +289,7 @@
     <div class="key-status" id="keyStatus"></div>
   </div>
 </div>
-
+ 
 <header class="hero">
   <div class="wrap">
     <div>
@@ -302,7 +302,7 @@
       </div>
       <p class="trust">Used on <b>arXiv preprints</b>, <b>theses</b>, and <b>that paper your advisor sent at 11pm</b>.</p>
     </div>
-
+ 
     <div class="page-mock" id="pageMock">
       <div class="doctitle">attention_is_all_you_need.pdf — p. 3</div>
       <p>The Transformer follows this overall architecture using stacked self-attention and point-wise, fully connected layers for both the encoder and decoder.</p>
@@ -314,7 +314,7 @@
     </div>
   </div>
 </header>
-
+ 
 <section class="section" id="how">
   <div class="wrap">
     <div class="section-head fade-up">
@@ -322,7 +322,7 @@
       <h2>Five kinds of notes, written where you need them.</h2>
       <p>Not a chatbot bolted onto a PDF viewer — every note sits next to the line it explains, the way a sharp classmate would annotate your printout.</p>
     </div>
-
+ 
     <div class="marg-list">
       <div class="marg-item fade-up">
         <div class="tag">01 — plain language</div>
@@ -352,7 +352,7 @@
     </div>
   </div>
 </section>
-
+ 
 <section class="section" id="try">
   <div class="wrap">
     <div class="demo fade-up">
@@ -386,7 +386,7 @@
     </div>
   </div>
 </section>
-
+ 
 <section class="section" id="quiz">
   <div class="wrap">
     <div class="section-head fade-up">
@@ -405,7 +405,7 @@
     </div>
   </div>
 </section>
-
+ 
 <section class="closing fade-up">
   <div class="wrap">
     <h2 class="serif">Stop re-reading the same paragraph four times.</h2>
@@ -413,25 +413,25 @@
     <a class="btn-primary" href="#try">Upload a PDF</a>
   </div>
 </section>
-
+ 
 <footer>
   <div class="wrap">
     <span>Marginal</span>
     <span>built for the paper you're avoiding right now</span>
   </div>
 </footer>
-
+ 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
   // reveal annotations on hero mockup after a short delay
   setTimeout(()=>{ document.getElementById('pageMock').classList.add('live'); }, 700);
-
+ 
   // scroll reveal
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, {threshold:.15});
   document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
-
+ 
   // dropzone fake upload flow
   const dropzone = document.getElementById('dropzone');
   const fileInput = document.getElementById('fileInput');
@@ -439,7 +439,7 @@
   const progressBar = document.getElementById('progressBar');
   const progressLabel = document.getElementById('progressLabel');
   const steps = [document.getElementById('s1'), document.getElementById('s2'), document.getElementById('s3')];
-
+ 
   function runDemo(){
     progressWrap.classList.add('show');
     progressBar.style.width = '0%';
@@ -476,7 +476,7 @@
     const f = e.target.files[0];
     if(f) handleRealFile(f);
   });
-
+ 
   // ===== Groq API key storage =====
   const keyBtn = document.getElementById('keyBtn');
   const keyOverlay = document.getElementById('keyOverlay');
@@ -484,7 +484,7 @@
   const keyStatus = document.getElementById('keyStatus');
   const keyHint = document.getElementById('keyHint');
   const KEY_NAME = 'marginal_groq_key';
-
+ 
   function hasKey(){ return !!localStorage.getItem(KEY_NAME); }
   function refreshKeyUI(){
     if(hasKey()){
@@ -496,7 +496,7 @@
     }
   }
   refreshKeyUI();
-
+ 
   keyBtn.addEventListener('click', ()=>{
     keyInput.value = localStorage.getItem(KEY_NAME) || '';
     keyStatus.textContent = '';
@@ -519,39 +519,37 @@
     keyStatus.style.color = 'var(--ink-soft)';
     refreshKeyUI();
   });
-
+ 
   // ===== Real PDF handling =====
   if(window['pdfjsLib']){
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   }
-
+ 
   async function extractPdfText(file){
     const buf = await file.arrayBuffer();
     const pdf = await pdfjsLib.getDocument({data: buf}).promise;
     let text = '';
-    const maxPages = Math.min(pdf.numPages, 12);
+    const maxPages = Math.min(pdf.numPages, 50);
     for(let i=1; i<=maxPages; i++){
       progressLabel.textContent = `reading page ${i} of ${maxPages}…`;
-      progressBar.style.width = Math.round((i/maxPages)*45) + '%';
+      progressBar.style.width = Math.round((i/maxPages)*40) + '%';
       const page = await pdf.getPage(i);
       const content = await page.getTextContent();
       text += content.items.map(it=>it.str).join(' ') + '\n';
     }
-    return text.slice(0, 18000);
+    return text;
   }
-
-  async function callGroq(paperText){
+ 
+  function chunkText(text, chunkSize){
+    const chunks = [];
+    for(let i=0; i<text.length; i+=chunkSize){
+      chunks.push(text.slice(i, i+chunkSize));
+    }
+    return chunks;
+  }
+ 
+  async function groqChat(prompt){
     const key = localStorage.getItem(KEY_NAME);
-    const prompt = `You are Marginal, an AI that annotates academic papers like generous margin notes. Given the extracted text of a paper below, produce:
-1. A short "explain like I'm 15" note for the core idea.
-2. If there's a key equation, explain it in plain words.
-3. A 2-3 sentence summary per major section you can identify.
-4. One multiple-choice quiz question with 3 options and the correct answer marked.
-
-Format as readable plain text with clear headers, no markdown symbols. Keep it under 350 words total.
-
-PAPER TEXT:
-${paperText}`;
     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -571,7 +569,46 @@ ${paperText}`;
     const data = await res.json();
     return data.choices[0].message.content;
   }
-
+ 
+  async function callGroq(paperText){
+    const CHUNK_SIZE = 14000;
+ 
+    // short papers: single pass, no need to chunk
+    if(paperText.length <= CHUNK_SIZE){
+      progressLabel.textContent = 'writing margin notes…';
+      return groqChat(buildFinalPrompt(paperText));
+    }
+ 
+    // long papers: summarize each chunk first (map), then combine (reduce)
+    const chunks = chunkText(paperText, CHUNK_SIZE);
+    const partialSummaries = [];
+    for(let i=0; i<chunks.length; i++){
+      progressLabel.textContent = `digesting section ${i+1} of ${chunks.length}…`;
+      progressBar.style.width = (40 + Math.round(((i+1)/chunks.length)*35)) + '%';
+      const summary = await groqChat(
+        `Summarize this excerpt from an academic paper in plain language, in 4-6 sentences. Note any equations or figures mentioned and what they mean. Excerpt:\n\n${chunks[i]}`
+      );
+      partialSummaries.push(`[Part ${i+1}]\n${summary}`);
+    }
+ 
+    progressLabel.textContent = 'combining notes from the whole paper…';
+    progressBar.style.width = '85%';
+    return groqChat(buildFinalPrompt(partialSummaries.join('\n\n')));
+  }
+ 
+  function buildFinalPrompt(content){
+    return `You are Marginal, an AI that annotates academic papers like generous margin notes. Given the content below (either the raw paper text, or part-by-part summaries covering the whole paper), produce:
+1. A short "explain like I'm 15" note for the core idea.
+2. If there's a key equation, explain it in plain words.
+3. A 2-3 sentence summary per major section you can identify, covering the full paper from intro to conclusion.
+4. One multiple-choice quiz question with 3 options and the correct answer marked.
+ 
+Format as readable plain text with clear headers, no markdown symbols. Keep it under 450 words total.
+ 
+CONTENT:
+${content}`;
+  }
+ 
   async function handleRealFile(file){
     if(file.type !== 'application/pdf'){ alert('Please choose a PDF file.'); return; }
     progressWrap.classList.add('show');
@@ -601,7 +638,7 @@ ${paperText}`;
       alert('Could not generate notes: ' + err.message);
     }
   }
-
+ 
   // quiz interaction
   document.querySelectorAll('.quiz-opt').forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -618,6 +655,6 @@ ${paperText}`;
     });
   });
 </script>
-
+ 
 </body>
 </html>
