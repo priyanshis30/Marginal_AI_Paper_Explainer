@@ -461,20 +461,19 @@
     }, 220);
   }
   dropzone.addEventListener('click', ()=>{
-    if(hasKey()) fileInput.click();
-    else runDemo();
+    fileInput.click();
   });
   ['dragover','dragenter'].forEach(ev=>dropzone.addEventListener(ev, e=>{ e.preventDefault(); dropzone.classList.add('drag'); }));
   ['dragleave'].forEach(ev=>dropzone.addEventListener(ev, e=>{ e.preventDefault(); dropzone.classList.remove('drag'); }));
   dropzone.addEventListener('drop', e=>{
     e.preventDefault(); dropzone.classList.remove('drag');
     const f = e.dataTransfer.files && e.dataTransfer.files[0];
-    if(hasKey() && f && f.type === 'application/pdf') handleRealFile(f);
-    else runDemo();
+    if(f) handleRealFile(f);
   });
   fileInput.addEventListener('change', e=>{
     const f = e.target.files[0];
     if(f) handleRealFile(f);
+    fileInput.value = '';
   });
  
   // ===== Groq API key storage =====
@@ -521,11 +520,24 @@
   });
  
   // ===== Real PDF handling =====
-  if(window['pdfjsLib']){
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-  }
+  let workerReady = (async ()=>{
+    if(!window['pdfjsLib']) return;
+    const workerUrl = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    try{
+      // fetch the worker script ourselves and load it from a same-origin blob URL,
+      // since browsers block creating a Worker directly from a cross-origin script URL
+      const res = await fetch(workerUrl);
+      const code = await res.text();
+      const blob = new Blob([code], {type: 'application/javascript'});
+      pdfjsLib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(blob);
+    } catch(e){
+      console.warn('Falling back to direct worker URL', e);
+      pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
+    }
+  })();
  
   async function extractPdfText(file){
+    await workerReady;
     const buf = await file.arrayBuffer();
     const pdf = await pdfjsLib.getDocument({data: buf}).promise;
     let text = '';
@@ -611,6 +623,13 @@ ${content}`;
  
   async function handleRealFile(file){
     if(file.type !== 'application/pdf'){ alert('Please choose a PDF file.'); return; }
+    if(!hasKey()){
+      progressWrap.classList.add('show');
+      progressBar.style.width = '0%';
+      progressLabel.textContent = 'add a Groq API key first (🔑 in the nav) to read a real PDF';
+      keyOverlay.classList.add('open');
+      return;
+    }
     progressWrap.classList.add('show');
     progressBar.style.width = '0%';
     steps.forEach(s=>s.classList.remove('active'));
@@ -634,7 +653,8 @@ ${content}`;
       panel.classList.add('in');
       panel.scrollIntoView({behavior:'smooth', block:'center'});
     } catch(err){
-      progressLabel.textContent = 'something went wrong';
+      console.error('Marginal upload error:', err);
+      progressLabel.textContent = 'failed: ' + err.message;
       alert('Could not generate notes: ' + err.message);
     }
   }
