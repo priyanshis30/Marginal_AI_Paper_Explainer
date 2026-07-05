@@ -279,6 +279,8 @@
   @media (prefers-reduced-motion: reduce){
     .fade-up, .note, .progress-bar, .dropzone .icon{transition:none !important; animation:none !important;}
   }
+ 
+ 
 </style>
 </head>
 <body>
@@ -414,8 +416,7 @@
 <section class="closing fade-up">
   <div class="wrap">
     <h2 class="serif">Stop re-reading the same paragraph four times.</h2>
-    <p>Upload a paper. Read it with notes in the margin instead of tabs open everywhere else.</p>
-    <a class="btn-primary" href="#try">Upload a PDF</a>
+    <p>Read it with notes in the margin instead of tabs open everywhere else.</p>
   </div>
 </section>
  
@@ -469,6 +470,11 @@
  
   let busy = false;
   const MAX_CHARS = 100000; // keep the request well within a reasonable size
+ 
+  // Point this at your own backend route — the one that holds the Grok key
+  // server-side and forwards the paper text to it. The frontend never sees
+  // any API key now; that's the whole point of moving auth to the backend.
+  const API_ENDPOINT = '/api/annotate';
  
   function setStep(activeIndex){
     steps.forEach((s,i)=>{
@@ -559,27 +565,23 @@ ${paperText}
 --- PAPER TEXT END ---`;
   }
  
-  // ===== call Claude =====
-  async function callClaude(paperText){
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+  // ===== call your backend (which calls Grok with the key kept server-side) =====
+  // Expected contract: POST { prompt: string } to API_ENDPOINT
+  // Response: { text: string } where text is the model's raw reply
+  // (the JSON described in buildPrompt, as a string — parsed below).
+  async function callBackend(paperText){
+    const response = await fetch(API_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 1000,
-        messages: [
-          { role: "user", content: buildPrompt(paperText) }
-        ]
-      })
+      body: JSON.stringify({ prompt: buildPrompt(paperText) })
     });
     if(!response.ok){
       const errText = await response.text();
-      throw new Error(`API error (${response.status}): ${errText.slice(0,200)}`);
+      throw new Error(`Backend error (${response.status}): ${errText.slice(0,200)}`);
     }
     const data = await response.json();
-    const textBlock = (data.content || []).find(c => c.type === 'text');
-    if(!textBlock) throw new Error('No response text received');
-    return textBlock.text;
+    if(!data || typeof data.text !== 'string') throw new Error('No response text received from backend');
+    return data.text;
   }
  
   function parseNotes(raw){
@@ -712,7 +714,7 @@ ${paperText}
       progressBar.classList.add('indeterminate');
       progressLabel.textContent = `writing notes on ${numPages} page${numPages === 1 ? '' : 's'} of text…`;
  
-      const raw = await callClaude(text);
+      const raw = await callBackend(text);
       progressBar.classList.remove('indeterminate');
       progressBar.style.width = '90%';
       const notes = parseNotes(raw);
